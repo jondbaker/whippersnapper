@@ -7,7 +7,7 @@ EM = Excuse Me
 FB = Facebook
 GL = Good Luck
 HHIS = Hanging Head in Shame
-IDK = I Don’t Know
+IDK = I Don't Know
 JC = Just Curious
 K = OK
 LOLA = Laughing Out Loud Again
@@ -30,11 +30,11 @@ ZZZ = Sleeping, Bored, Tired
 :-< = Sad
 =-3 = Laughing
 :@ = Angry
-:’( = Crying
+:'( = Crying
 >:\ = Annoyed
 :$ = Embarrassed
 3:) = Devilish
 =\ = Skeptical
 :& = Tongue-tied
-,:”I = Attacked by cat
-:%I = Lowering glasses to see if you’re serious
+,:"I = Attacked by cat
+:%I = Lowering glasses to see if you're serious
