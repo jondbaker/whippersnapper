@@ -18,42 +18,50 @@ class MessageParser(object):
         with open(source, "r") as f:
             for line in f:
                 bits = line.replace(" ", "").split("=")
-                dictionary[bits[0]] = bits[1][:-1]  # slice newline
+
+                if bits[1][-1] == "\n":
+                    dictionary[bits[0]] = bits[1][:-1]  # slice newline
+                else:
+                    dictionary[bits[0]] = bits[1]
 
         return dictionary
 
     def parse(self):
-        """Parse the message and translate as necessary."""
+        """Parse the message and attempt substitution."""
         result = []
 
         for word in self.message:
-            word = self.translate(word)
-            result.append(word)
+            result.append(self.substitute(word))
 
         return " ".join([i for i in result])
 
     def edge_of_sentence_segment(self, word):
         # @todo only call in promiscuous mode?
-        """Check if a word ends with standard sentence-end punctuation."""
-        if word[-1] in ['.', ',', '!', '?']:
+        """Check if a word ends with standard segment edge punctuation."""
+        if word[-1] in ['.', ',', '!', '?', ';']:
             return True
         return False
 
-    def translate(self, word):
-        """Return dictionary match or original word."""
-        match = self.dictionary.get(word, None)  # easy, explicit match
+    def substitute(self, word):
+        """Return shorthand substitution or original word."""
+        entry = self.dictionary.get(word, None)  # easy, explicit match
 
-        if match:
-            return match
+        if entry:
+            return entry
         else:
             if self.edge_of_sentence_segment(word):
-                # @todo add punctuation back
-                return self.dictionary.get(word[:-1], word)
+                punctuation = word[-1]
+                entry = self.dictionary.get(word[:-1], None)
+                if entry:
+                    return entry + punctuation  # re-add punctuation
+                else:
+                    return word  # return original
             else:
-                return word
+                return word  # return original
 
 
 def _get_args():
+    """Parse command line arguments."""
     parser = argparse.ArgumentParser(
         description="Translate shorthand within a text message.")
 
