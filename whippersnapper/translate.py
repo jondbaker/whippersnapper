@@ -48,16 +48,15 @@ class MessageParser(object):
 
         if entry:
             return entry
-        else:
-            if self.edge_of_sentence_segment(word):
-                punctuation = word[-1]
-                entry = self.dictionary.get(word[:-1], None)
-                if entry:
-                    return entry + punctuation  # re-add punctuation
-                else:
-                    return word  # return original
+        elif self.edge_of_sentence_segment(word):
+            punctuation = word[-1]
+            entry = self.dictionary.get(word[:-1], None)
+            if entry:
+                return entry + punctuation  # re-add punctuation
             else:
                 return word  # return original
+        else:
+            return word  # return original
 
 
 def _get_args():
