@@ -67,6 +67,7 @@ def _get_args():
 
 
 def _display_output(original, translated):
+    """Format stdout."""
     print "\n" + ("#" * 31) + " ORIGINAL MESSAGE " + ("#" * 31)
     print original + "\n"
     print ("#" * 30) + " TRANSLATED MESSAGE " + ("#" * 30)
