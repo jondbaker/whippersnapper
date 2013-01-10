@@ -84,6 +84,6 @@ def _display_output(original, translated):
 
 if __name__ == "__main__":
     args = _get_args()
-    parser = TextMessageParser(args.message, args.promiscuous)
+    parser = MessageParser(args.message, args.promiscuous)
     result = parser.parse()
     _display_output(args.message, result)
