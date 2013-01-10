@@ -1,5 +1,5 @@
 ==============
-whippersnapper
+Whippersnapper
 ==============
 
 An emoticon and shorthand message translator. 
@@ -15,11 +15,11 @@ Requirements
 
 Usage
 =====
-@todo write 
+``$ ./translate.py "459! Can't wait to CU :-)."``
 
 Tests
 =====
-@todo develop 
+``$ ./tests/unit.py``
 
 Issues
 ======
