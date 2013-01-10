@@ -16,8 +16,7 @@ def _get_args():
         description="Translate shorthand within a text message.")
 
     parser.add_argument(
-        "message", type=str, help="the text message to translate",
-        nargs=argparse.REMAINDER)
+        "message", type=str, help="the text message to translate")
     parser.add_argument(
         "-p", "--promiscuous", help="parse text message promiscuously",
         action="store_true")
