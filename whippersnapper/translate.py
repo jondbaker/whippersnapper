@@ -44,8 +44,15 @@ def _get_args():
     return parser.parse_args()
 
 
+def _display_output(original, translated):
+    print "\n" + ("#" * 31) + " ORIGINAL MESSAGE " + ("#" * 31)
+    print original + "\n"
+    print ("#" * 30) + " TRANSLATED MESSAGE " + ("#" * 30)
+    print translated + "\n"
+
+
 if __name__ == "__main__":
     args = _get_args()
     parser = TextMessageParser(args.message, args.promiscuous)
     result = parser.parse()
-    print result
+    _display_output(args.message, result)
