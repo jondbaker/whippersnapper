@@ -21,7 +21,12 @@ class TextMessageParser(object):
         return dictionary
 
     def parse(self):
-        pass
+        result = []
+
+        for word in self.message:
+            result.append(self.dictionary.get(word, word))
+
+        return " ".join([i for i in result])
 
 
 def _get_args():
