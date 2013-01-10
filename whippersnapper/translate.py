@@ -7,12 +7,12 @@ class MessageParser(object):
 
     def __init__(self, message, promiscuous=False):
         """Initialize instance variables."""
-        self.dictionary = self.build_dictionary(
-            "./dictionary.txt", promiscuous)
+        self.promiscuous = promiscuous
+        self.dictionary = self.build_dictionary("./dictionary.txt")
         # remove extra whitespaces then split words
         self.message = " ".join(message.split()).split(" ")
 
-    def build_dictionary(self, source, promiscuous):
+    def build_dictionary(self, source):
         """Build the shorthand dictionary."""
         dictionary = {}
         pattern = re.compile(r'^(.+)\s=\s(.+)$')
@@ -21,7 +21,10 @@ class MessageParser(object):
             for line in f:
                 match = re.match(pattern, line.replace("\n", ""))
                 if match:
-                    dictionary[match.group(1)] = match.group(2)
+                    if self.promiscuous:
+                        dictionary[match.group(1).lower()] = match.group(2)
+                    else:
+                        dictionary[match.group(1)] = match.group(2)
 
         # @todo raise exception if empty?
         return dictionary
@@ -36,7 +39,6 @@ class MessageParser(object):
         return " ".join([i for i in result])
 
     def edge_of_sentence_segment(self, word):
-        # @todo only call in promiscuous mode?
         """Check if a word ends with standard segment edge punctuation."""
         if word[-1] in ['.', ',', '!', '?', ';']:
             return True
@@ -44,6 +46,10 @@ class MessageParser(object):
 
     def substitute(self, word):
         """Return shorthand substitution or original word."""
+        # @todo branch functionality with additional "modes"?
+        if self.promiscuous:
+            word = word.lower()
+
         entry = self.dictionary.get(word, None)  # easy, explicit match
 
         if entry:
