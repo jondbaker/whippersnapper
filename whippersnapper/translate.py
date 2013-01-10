@@ -11,6 +11,7 @@ class TextMessageParser(object):
         self.message = " ".join(message.split()).split(" ")
 
     def build_dictionary(self, source, promiscuous):
+        """Build the shorthand dictionary."""
         dictionary = {}
 
         with open(source, "r") as f:
@@ -21,6 +22,7 @@ class TextMessageParser(object):
         return dictionary
 
     def parse(self):
+        """Parse the message and translate as necessary."""
         result = []
 
         for word in self.message:
