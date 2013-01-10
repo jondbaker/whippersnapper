@@ -11,7 +11,14 @@ class TextMessageParser(object):
         self.message = " ".join(message.split()).split(" ")
 
     def build_dictionary(self, source, promiscuous):
-        pass
+        dictionary = {}
+
+        with open(source, "r") as f:
+            for line in f:
+                bits = line.replace(" ", "").split("=")
+                dictionary[bits[0]] = bits[1][:-1]  # slice newline
+
+        return dictionary
 
     def parse(self):
         pass
