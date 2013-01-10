@@ -15,16 +15,15 @@ class MessageParser(object):
     def build_dictionary(self, source, promiscuous):
         """Build the shorthand dictionary."""
         dictionary = {}
+        pattern = re.compile(r'^(.+)\s=\s(.+)$')
 
         with open(source, "r") as f:
             for line in f:
-                bits = line.replace(" ", "").split("=")
+                match = re.match(pattern, line.replace("\n", ""))
+                if match:
+                    dictionary[match.group(1)] = match.group(2)
 
-                if bits[1][-1] == "\n":
-                    dictionary[bits[0]] = bits[1][:-1]  # slice newline
-                else:
-                    dictionary[bits[0]] = bits[1]
-
+        # @todo raise exception if empty?
         return dictionary
 
     def parse(self):
