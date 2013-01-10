@@ -26,9 +26,30 @@ class TextMessageParser(object):
         result = []
 
         for word in self.message:
-            result.append(self.dictionary.get(word, word))
+            word = self.translate(word)
+            result.append(word)
 
         return " ".join([i for i in result])
+
+    def edge_of_sentence_segment(self, word):
+        # @todo only call in promiscuous mode?
+        """Check if a word ends with standard sentence-end punctuation."""
+        if word[-1] in ['.', ',', '!', '?']:
+            return True
+        return False
+
+    def translate(self, word):
+        """Return dictionary match or original word."""
+        match = self.dictionary.get(word, None)  # easy, explicit match
+
+        if match:
+            return match
+        else:
+            if self.edge_of_sentence_segment(word):
+                # @todo add punctuation back
+                return self.dictionary.get(word[:-1], word)
+            else:
+                return word
 
 
 def _get_args():
