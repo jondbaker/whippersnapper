@@ -2,9 +2,10 @@
 import argparse
 
 
-class TextMessageParser(object):
+class MessageParser(object):
 
     def __init__(self, message, promiscuous):
+        """Initialize instance variables."""
         self.dictionary = self.build_dictionary(
             "./dictionary.txt", promiscuous)
         # remove extra whitespaces then split words
