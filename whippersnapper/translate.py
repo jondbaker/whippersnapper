@@ -5,6 +5,12 @@ import argparse
 class TextMessageParser(object):
 
     def __init__(self, message, promiscuous):
+        self.dictionary = self.build_dictionary(
+            "./dictionary.txt", promiscuous)
+        # remove extra whitespaces then split words
+        self.message = " ".join(message.split()).split(" ")
+
+    def build_dictionary(self, source, promiscuous):
         pass
 
     def parse(self):
