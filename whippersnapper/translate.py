@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 import argparse
+import re
 
 
 class MessageParser(object):
 
-    def __init__(self, message, promiscuous):
+    def __init__(self, message, promiscuous=False):
         """Initialize instance variables."""
         self.dictionary = self.build_dictionary(
             "./dictionary.txt", promiscuous)
