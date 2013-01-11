@@ -4,7 +4,9 @@ import re
 
 
 class MessageParser(object):
-
+    """
+    A message parser that can perform emoticon and shorthand substitutions.
+    """
     def __init__(self, message, promiscuous=False):
         """Initialize instance variables."""
         self.promiscuous = promiscuous
@@ -25,6 +27,7 @@ class MessageParser(object):
                         dictionary[match.group(1).lower()] = match.group(2)
                     else:
                         dictionary[match.group(1)] = match.group(2)
+                # @todo how to handle no match?
 
         # @todo raise exception if empty?
         return dictionary
@@ -46,11 +49,10 @@ class MessageParser(object):
 
     def substitute(self, word):
         """Return shorthand substitution or original word."""
-        # @todo branch functionality with additional "modes"?
         if self.promiscuous:
             word = word.lower()
 
-        entry = self.dictionary.get(word, None)  # easy, explicit match
+        entry = self.dictionary.get(word, None)  # exact match
 
         if entry:
             return entry
@@ -68,12 +70,12 @@ class MessageParser(object):
 def _get_args():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(
-        description="Translate shorthand within a text message.")
+        description="Translate a message containing emoticon and shorthand text.")
 
     parser.add_argument(
-        "message", type=str, help="the text message to translate")
+        "message", type=str, help="the message to translate")
     parser.add_argument(
-        "-p", "--promiscuous", help="parse text message promiscuously",
+        "-p", "--promiscuous", help="perform substitutions promiscuously",
         action="store_true")
 
     return parser.parse_args()
